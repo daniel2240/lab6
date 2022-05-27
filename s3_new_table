@@ -1,0 +1,6 @@
+# tabla externa en S3: 
+use usernamedb;
+CREATE EXTERNAL TABLE HDIS3 (id INT, country STRING, hdi FLOAT, lifeex INT, mysch INT, eysch INT, gni INT) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+STORED AS TEXTFILE 
+LOCATION 's3://notebooksdgiraldo/datasets/onu/hdi/'
