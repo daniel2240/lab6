@@ -1,0 +1,27 @@
+# tabla manejada por hive: /hadoop/hive/warehouse
+$ beeline 
+use usernamedb;
+CREATE TABLE HDI (id INT, country STRING, hdi FLOAT, lifeex INT, mysch INT, eysch INT, gni INT) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+
+# OPCIONES PARA cargar datos a la tabla asi:
+# OPCIÓN 1:
+# copiando datos directamente hacia hdfs:/user/hadoop/hive/warehouse/usernamedb.db/hdi/
+
+$ hdfs dfs -put hdfs:/user/hadoop/datasets/onu/hdi-data.csv hdfs:/user/hadoop/hive/warehouse/usernamedb.db/hdi
+
+# OPCIÓN 2:
+# cargardo datos desde hive:
+
+## darle primero permisos completos al directorio:
+$ hdfs dfs -chmod -R 777 /user/hadoop/datasets/onu/
+$ beeline
+0: jdbc:hive2://sandbox-hdp.hortonworks.com:2> LOAD DATA INPATH '/user/hadoop/datasets/onu/hdi-data.csv' INTO TABLE HDI
+
+# tabla externa en hdfs: 
+use usernamedb;
+CREATE EXTERNAL TABLE HDI (id INT, country STRING, hdi FLOAT, lifeex INT, mysch INT, eysch INT, gni INT) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+STORED AS TEXTFILE 
+LOCATION '/user/hadoop/datasets/onu/hdi/'
