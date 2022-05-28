@@ -1,0 +1,16 @@
+CREATE EXTERNAL TABLE docs (line STRING) 
+STORED AS TEXTFILE 
+LOCATION 's3://notebooksdgiraldo/datasets/gutenberg-small/';
+
+
+// ordenado por palabra
+
+SELECT word, count(1) AS count FROM (SELECT explode(split(line,' ')) AS word FROM docs) w 
+GROUP BY word 
+ORDER BY word DESC LIMIT 10;
+
+// ordenado por frecuencia de menor a mayor
+
+SELECT word, count(1) AS count FROM (SELECT explode(split(line,' ')) AS word FROM docs) w 
+GROUP BY word 
+ORDER BY count DESC LIMIT 10;
