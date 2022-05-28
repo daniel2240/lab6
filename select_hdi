@@ -1,0 +1,18 @@
+use usernamedb;
+show tables;
+describe hdis3;
+
+select * from hdis3;
+
+select country, gni from hdi where gni > 2000;    
+
+
+usar los datos en 'datasets' de este repositorio.
+
+use usernamedb;
+CREATE EXTERNAL TABLE EXPO (country STRING, expct FLOAT) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+STORED AS TEXTFILE 
+LOCATION 's3://notebooksdgiraldo/datasets/onu/export/'
+
+SELECT h.country, gni, expct FROM HDI h JOIN EXPO e ON (h.country = e.country) WHERE gni > 2000;
