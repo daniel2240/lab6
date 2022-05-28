@@ -1,1 +1,1 @@
-# Todas las evidencias se encuentran reportadas en el archivo word enviado
+# Todas las evidencias se encuentran reportadas en el archivo pdf enviado
